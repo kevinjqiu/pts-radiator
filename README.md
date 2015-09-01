@@ -1,1 +1,8 @@
-Check out http://shopify.github.com/dashing for more information.
+Install
+=======
+
+`bundle install`
+
+and
+
+`dashing start`
