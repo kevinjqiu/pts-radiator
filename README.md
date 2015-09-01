@@ -3,6 +3,8 @@ Install
 
 `bundle install`
 
-and
+
+Run
+===
 
 `dashing start`
