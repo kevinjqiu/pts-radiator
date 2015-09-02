@@ -1,5 +1,4 @@
 require 'teamcity'
-require 'byebug'
 
 def update_builds(project_id)
   builds = []
