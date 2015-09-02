@@ -1,2 +1,2 @@
-FROM google/ruby-runtime:latest
+FROM frvi/dashing
 MAINTAINER kevin.qiu@points.com
