@@ -1,19 +1,24 @@
 <h1 class="title" data-bind="title"></h1>
 
-<img width="300" height="300" src="/assets/logo_teamcity.png" data-addclass-ok="item.state">
-
-<ol>
-  <li data-foreach-item="items">
-    <span class="label" data-bind="item.label"></span>
-    <span class="value" data-bind="item.value"></span>
-  </li>
-</ol>
+<img data-bind-src="image | prepend '/assets'" data-bind-width="width"/>
 
 <ul class="list-nostyle">
-  <li data-foreach-item="items">
-    <span class="label" data-bind="item.label"></span>
-    <span class="value" data-bind="item.value"></span>
-  </li>
+    <li data-foreach-item="items">
+        <ul>
+            <li class="project" data-foreach-item="item.projects">
+                <h3 class="project-name" data-bind="item.name"></h3>
+                <ul class="builds" >
+                    <li data-foreach-item="item.build_types"
+                        data-bind-class="item.last_build.status">
+                        <p>
+                            <strong class="build-type-name" data-bind="item.name"></strong>
+                            #<span data-bind="item.last_build.number"></span>
+                        </p>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </li>
 </ul>
 
 <p class="more-info" data-bind="moreinfo"></p>
