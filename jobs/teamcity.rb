@@ -1,6 +1,8 @@
 require 'teamcity'
 
 def update_builds(project_id)
+  puts "Pulling build status for #{project_id}"
+
   builds = []
   projects = []
 
