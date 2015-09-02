@@ -1,7 +1,11 @@
+require 'logger'
 require 'teamcity'
 
+LOG = Logger.new(STDOUT)
+
+
 def update_builds(project_id)
-  puts "Pulling build status for #{project_id}"
+  LOG.info("Pulling build status for #{project_id}")
 
   builds = []
   projects = []
@@ -56,12 +60,12 @@ end
 
 spread = 5
 if config['repositories'].nil?
-  puts 'You need at least one TeamCity repository!'
+  LOG.warn('You need at least one TeamCity repository!')
 else
   config['repositories'].each_with_index do |repository, i|
     data_id, build_id = repository
     delay = spread * (i + 1)
-    puts "Scheduling #{build_id} to pull in #{delay}s"
+    LOG.info("Scheduling #{build_id} to pull in #{delay}s")
     SCHEDULER.every '33s', first_in: "#{delay}s" do
       send_event(data_id, {items: update_builds(build_id)})
     end
