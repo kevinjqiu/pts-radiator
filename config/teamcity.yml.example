@@ -8,3 +8,5 @@ repositories:
     transfer-ft: Development_DevTransferService_DevTransferServiceHead
     move-ft: Development_DevMoveService_DevMoveServiceHead
     orders-ft: Development_DevOrdersService_DevOrdersServiceHead
+excluded_buildtypes:
+    - Development_DevOrdersService_DevOrdersServiceHead_FtLoadTest_2
