@@ -4,7 +4,7 @@ require 'teamcity'
 LOG = Logger.new(STDOUT)
 
 
-def update_builds(project_id)
+def update_builds(project_id, excluded_buildtypes)
   LOG.info("Pulling build status for #{project_id}")
 
   builds = []
@@ -21,16 +21,18 @@ def update_builds(project_id)
   end
 
   build_types.each do |build_type_obj|
-    build_type_obj_builds = TeamCity.builds(count: 1, buildType: build_type_obj[:id])
-    unless build_type_obj_builds.nil?
-      last_build = build_type_obj_builds.first
+    if not excluded_buildtypes.include?(build_type_obj[:id])
+      build_type_obj_builds = TeamCity.builds(count: 1, buildType: build_type_obj[:id])
+      unless build_type_obj_builds.nil?
+        last_build = build_type_obj_builds.first
 
-      build_type_obj['last_build'] = {
-        id:     last_build.id,
-        number: last_build.number,
-        state:  last_build.state,
-        status: last_build.status
-      }
+        build_type_obj['last_build'] = {
+          id:     last_build.id,
+          number: last_build.number,
+          state:  last_build.state,
+          status: last_build.status
+        }
+      end
     end
   end
 
@@ -67,7 +69,7 @@ else
     delay = spread * (i + 1)
     LOG.info("Scheduling #{build_id} to pull in #{delay}s")
     SCHEDULER.every '33s', first_in: "#{delay}s" do
-      send_event(data_id, {items: update_builds(build_id)})
+      send_event(data_id, {items: update_builds(build_id, config['excluded_buildtypes'])})
     end
   end
 end
