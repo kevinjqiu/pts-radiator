@@ -15,10 +15,22 @@ def update_builds(project_id, excluded_buildtypes)
 
   project.buildTypes.buildType.each do |build_type|
     if not excluded_buildtypes.include?(build_type[:id])
-      build_types << {
-        id:   build_type.id,
-        name: build_type.name
-      }
+
+      build_type_obj_builds = TeamCity.builds(count: 1, buildType: build_type[:id])
+      unless build_type_obj_builds.nil?
+        last_build = build_type_obj_builds.first
+
+        build_types << {
+          id:         build_type.id,
+          name:       build_type.name,
+          last_build: {
+            id:     last_build.id,
+            number: last_build.number,
+            state:  last_build.state,
+            status: last_build.status,
+          }
+        }
+      end
     end
   end
 
