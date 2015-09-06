@@ -1,7 +1,7 @@
 api_url: "http://prod-builds-1.points.com:8111/httpAuth/app/rest"
 http_user: "admin"
 http_password: "correct horse battery staple"
-repositories:
+projects:
     fidelity-ft: Development_DevFidelity_DevFidelityHead
     buy-ft: Development_DevBuyService_DevBuyServiceHead_2
     gift-ft: Development_DevGiftService_DevGiftServiceHead

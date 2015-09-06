@@ -83,11 +83,11 @@ TeamCity.configure do |teamcity|
 end
 
 spread = 5
-if config['repositories'].nil?
-  LOG.warn('You need at least one TeamCity repository!')
+if config['projects'].nil?
+  LOG.warn('You need at least one TeamCity project!')
 else
-  config['repositories'].each_with_index do |repository, i|
-    data_id, build_id = repository
+  config['projects'].each_with_index do |project, i|
+    data_id, build_id = project
     delay = spread * (i + 1)
     LOG.info("Scheduling #{build_id} to pull in #{delay}s")
     SCHEDULER.every '45s', first_in: "#{delay}s" do
