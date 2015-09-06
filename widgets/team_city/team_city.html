@@ -1,23 +1,10 @@
-<h1 class="title" data-bind="title"></h1>
-
-<img data-bind-src="image | prepend '/assets'" data-bind-width="width"/>
-
-<ul class="list-nostyle">
-    <li data-foreach-item="items">
-        <ul>
-            <li class="project" data-foreach-item="item.projects">
-                <h3 class="project-name" data-bind="item.name"></h3>
-                <ul class="builds" >
-                    <li data-foreach-item="item.build_types"
-                        data-bind-class="item.last_build.status">
-                        <p>
-                            <strong class="build-type-name" data-bind="item.name"></strong>
-                            #<span data-bind="item.last_build.number"></span>
-                        </p>
-                    </li>
-                </ul>
-            </li>
-        </ul>
+<h1 class="project-name" data-bind="project.name"></h1>
+<ul class="builds">
+    <li data-bind-class="project.status">
+        <p>
+            <strong class="build-type-name" data-bind="project.build_step_to_show.name"></strong>
+            #<span data-bind="project.build_step_to_show.last_build.number"></span>
+        </p>
     </li>
 </ul>
 
